@@ -1,4 +1,4 @@
 package com.mjc.school.repository;
 
-public interface NewsRepo {
+public class AuthorEntity {
 }
