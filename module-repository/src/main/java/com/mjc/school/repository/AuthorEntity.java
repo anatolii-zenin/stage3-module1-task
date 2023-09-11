@@ -8,4 +8,9 @@ import lombok.Setter;
 public class AuthorEntity {
     private long id;
     private String name;
+
+    @Override
+    public String toString() {
+        return "[" + id + "] name:" + name;
+    }
 }
