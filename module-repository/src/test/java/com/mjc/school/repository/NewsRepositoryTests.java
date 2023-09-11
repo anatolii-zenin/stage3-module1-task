@@ -12,7 +12,7 @@ public class NewsRepositoryTests {
         NewsRepository repo = CNewsRepository.instance();
         repo.readDataFromFiles("news_test.json","authors_test.json");
         var newsEntry = repo.getAllNews().get(0);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(CNewsRepository.instance().getDateFormatPattern());
         assertEquals(0, newsEntry.getId());
         assertEquals("testNews", newsEntry.getTitle());
         assertEquals("testNews", newsEntry.getContent());

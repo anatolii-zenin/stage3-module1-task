@@ -2,6 +2,7 @@ package com.mjc.school.repository;
 
 import com.mjc.school.repository.NewsEntity;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public interface NewsRepository {
@@ -13,4 +14,5 @@ public interface NewsRepository {
     List<AuthorEntity> getAllAuthors();
     public void readDataFromFiles();
     public void readDataFromFiles(String newsFile, String authorsFile);
+    public String getDateFormatPattern();
 }
