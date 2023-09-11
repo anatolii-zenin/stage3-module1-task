@@ -7,13 +7,16 @@ import jdk.jshell.spi.ExecutionControl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CNewsRepository implements NewsRepository {
-    private volatile CNewsRepository instance;
+    private static volatile CNewsRepository instance = new CNewsRepository();
     private List<NewsEntity> allNews;
     private List<AuthorEntity> allAuthors;
+    private String dateFormatPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";
     @Override
     public boolean deleteNewsEntry(long id) {
         return false;
@@ -48,9 +51,15 @@ public class CNewsRepository implements NewsRepository {
         return 0;
     }
 
+    public String getDateFormatPattern() {
+        return dateFormatPattern;
+    }
+
     private <T> List<T> readJsonFile(String fileName, Class<T> objClass) {
+        DateFormat df = new SimpleDateFormat(dateFormatPattern);
         var objMapper = new ObjectMapper()
-                .registerModule(new JavaTimeModule());
+                .registerModule(new JavaTimeModule())
+                .setDateFormat(df);
         try(InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(fileName)) {
             var collectionType = objMapper.getTypeFactory().constructCollectionType(ArrayList.class, objClass);
             List<T> objList = objMapper.readValue(resourceStream, collectionType);
@@ -60,17 +69,23 @@ public class CNewsRepository implements NewsRepository {
         }
     }
 
-    public CNewsRepository() {
+    private CNewsRepository() {}
+
+    public void readDataFromFiles() {
         allNews = readJsonFile("news.json", NewsEntity.class);
         allAuthors = readJsonFile("authors.json", AuthorEntity.class);
     }
 
-    public CNewsRepository(String newsFile, String authorsFile) {
+    public void readDataFromFiles(String newsFile, String authorsFile) {
         allNews = readJsonFile(newsFile, NewsEntity.class);
         allAuthors = readJsonFile(authorsFile, AuthorEntity.class);
     }
 
     public boolean saveToFile() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("not implemented yet");
+    }
+
+    public static CNewsRepository instance(){
+        return instance;
     }
 }

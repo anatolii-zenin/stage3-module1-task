@@ -9,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class NewsRepositoryTests {
     @Test
     public void readFileTest() {
-        var repo = new CNewsRepository("news_test.json","authors_test.json");
+        NewsRepository repo = CNewsRepository.instance();
+        repo.readDataFromFiles("news_test.json","authors_test.json");
         var newsEntry = repo.getAllNews().get(0);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
         assertEquals(0, newsEntry.getId());

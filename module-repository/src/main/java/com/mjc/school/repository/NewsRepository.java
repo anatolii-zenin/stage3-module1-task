@@ -11,4 +11,6 @@ public interface NewsRepository {
     List<NewsEntity> getAllNews();
     boolean updateNewsEntry(NewsEntity news);
     List<AuthorEntity> getAllAuthors();
+    public void readDataFromFiles();
+    public void readDataFromFiles(String newsFile, String authorsFile);
 }
