@@ -5,8 +5,8 @@ import com.mjc.school.repository.NewsEntity;
 import java.util.List;
 
 public interface NewsRepository {
-    boolean deleteNewsEntry(int id);
-    NewsEntity getNewsById(int id);
+    boolean deleteNewsEntry(long id);
+    NewsEntity getNewsById(long id);
     int createNewsEntry(NewsEntity news);
     List<NewsEntity> getAllNews();
     boolean updateNewsEntry(NewsEntity news);
