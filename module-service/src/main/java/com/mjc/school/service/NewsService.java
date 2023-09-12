@@ -13,6 +13,5 @@ public interface NewsService {
     List<NewsDTO> getAllNews();
     boolean updateNewsEntry(NewsDTO news);
     void setNewsRepo(NewsRepository newsRepoInstance);
-    void startRepo();
     void init();
 }

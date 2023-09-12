@@ -107,11 +107,8 @@ public class CNewsService implements NewsService {
         newsRepo = newsRepoInstance;
     }
 
-    public void startRepo() {
-        newsRepo.readDataFromFiles();
-    }
-
     public void init() {
+        newsRepo.readDataFromFiles();
         fetchNewsAndAuthors();
     }
 
