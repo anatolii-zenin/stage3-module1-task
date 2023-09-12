@@ -69,8 +69,6 @@ public class CNewsRepository implements NewsRepository {
         }
     }
 
-    private CNewsRepository() {}
-
     public void readDataFromFiles() {
         allNews = readJsonFile("news.json", NewsEntity.class);
         allAuthors = readJsonFile("authors.json", AuthorEntity.class);

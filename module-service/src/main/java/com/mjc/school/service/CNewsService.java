@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class CNewsService implements NewsService {
     private static volatile CNewsService instance = new CNewsService();
-    private NewsRepository newsRepo = CNewsRepository.instance();
+    private NewsRepository newsRepo;
     private List<AuthorDTO> authors = new ArrayList<>();
     private List<NewsDTO> news = new ArrayList<>();
     @Override
@@ -103,16 +103,15 @@ public class CNewsService implements NewsService {
         System.out.println("fetched news: " + newsCounter);
     }
 
-    private CNewsService() {
+    public void setNewsRepo(NewsRepository newsRepoInstance) {
+        newsRepo = newsRepoInstance;
+    }
+
+    public void startRepo() {
+        newsRepo.readDataFromFiles();
     }
 
     public void init() {
-        newsRepo.readDataFromFiles();
-        fetchNewsAndAuthors();
-    }
-
-    public void init(String newsFile, String authorsFile) {
-        newsRepo.readDataFromFiles(newsFile, authorsFile);
         fetchNewsAndAuthors();
     }
 

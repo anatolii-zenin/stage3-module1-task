@@ -2,6 +2,8 @@ package com.mjc.school.service;
 
 
 
+import com.mjc.school.repository.NewsRepository;
+
 import java.util.List;
 
 public interface NewsService {
@@ -10,4 +12,7 @@ public interface NewsService {
     int createNewsEntry(NewsDTO news);
     List<NewsDTO> getAllNews();
     boolean updateNewsEntry(NewsDTO news);
+    void setNewsRepo(NewsRepository newsRepoInstance);
+    void startRepo();
+    void init();
 }

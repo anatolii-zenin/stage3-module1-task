@@ -21,6 +21,7 @@ dependencies {
     implementation(project(":module-repository"))
     implementation("org.projectlombok:lombok:1.18.28")
     annotationProcessor("org.projectlombok:lombok:1.18.28")
+    testImplementation("org.mockito:mockito-all:1.10.19")
 }
 
 tasks.test {
