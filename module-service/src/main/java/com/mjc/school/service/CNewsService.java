@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class CNewsService implements NewsService {
     private static volatile CNewsService instance = new CNewsService();
-    private NewsRepository newsRepo;
+    private NewsRepository newsRepo = CNewsRepository.instance();
     private List<AuthorDTO> authors = new ArrayList<>();
     private List<NewsDTO> news = new ArrayList<>();
     @Override
