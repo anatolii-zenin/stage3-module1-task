@@ -59,7 +59,7 @@ public class NewsServiceTests {
     public void setup() {
         newsRepoMock = mock(CNewsRepository.class);
         newsService = CNewsService.instance();
-        newsService.setNewsRepo(newsRepoMock);
+        CNewsService.instance().setNewsRepo(newsRepoMock);
     }
     @Test
     public void entityToDtoTest() {
