@@ -7,8 +7,8 @@ import java.util.List;
 public interface Controller {
     Boolean deleteNewsEntry(Long id);
     NewsDTO getNewsById(Long id);
-    Long createNewsEntry(NewsDTO newsDto);
+    NewsDTO createNewsEntry(NewsDTO newsDto);
     List<NewsDTO> getAllNews();
-    Boolean updateNewsEntry(NewsDTO news);
+    NewsDTO updateNewsEntry(NewsDTO news);
     void init();
 }

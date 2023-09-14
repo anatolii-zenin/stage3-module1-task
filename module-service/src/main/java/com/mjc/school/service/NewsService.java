@@ -7,8 +7,8 @@ import java.util.List;
 public interface NewsService {
     Boolean deleteNewsEntry(Long id);
     NewsDTO getNewsById(Long id);
-    Long createNewsEntry(NewsDTO news);
+    NewsDTO createNewsEntry(NewsDTO news);
     List<NewsDTO> getAllNews();
-    Boolean updateNewsEntry(NewsDTO news);
+    NewsDTO updateNewsEntry(NewsDTO news);
     void init();
 }

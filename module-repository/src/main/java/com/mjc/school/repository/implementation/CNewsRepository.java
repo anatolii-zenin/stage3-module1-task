@@ -1,6 +1,8 @@
 package com.mjc.school.repository.implementation;
 
 import com.mjc.school.repository.NewsRepository;
+import com.mjc.school.repository.models.AuthorModel;
+import com.mjc.school.repository.models.NewsModel;
 import jdk.jshell.spi.ExecutionControl;
 
 
@@ -36,18 +38,18 @@ public class CNewsRepository implements NewsRepository {
     }
 
     @Override
-    public Long createNewsEntry(NewsModel news) {
+    public NewsModel createNewsEntry(NewsModel news) {
         var id = generateNewsID();
         var now = LocalDateTime.now();
         news.setId(id);
         news.setCreateDate(now);
         news.setLastUpdateDate(now);
         allNews.add(news);
-        return id;
+        return news;
     }
 
     @Override
-    public Boolean updateNewsEntry(NewsModel news) {
+    public NewsModel updateNewsEntry(NewsModel news) {
         var id = news.getId();
         int index = -1;
         if (allNews.contains(news))
@@ -59,7 +61,7 @@ public class CNewsRepository implements NewsRepository {
         allNews.get(index).setAuthorId(news.getAuthorId());
         var now = LocalDateTime.now();
         allNews.get(index).setLastUpdateDate(now);
-        return Boolean.TRUE;
+        return allNews.get(index);
     }
 
     @Override

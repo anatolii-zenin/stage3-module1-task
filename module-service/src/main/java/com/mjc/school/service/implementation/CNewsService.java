@@ -1,6 +1,6 @@
 package com.mjc.school.service.implementation;
 
-import com.mjc.school.repository.implementation.NewsModel;
+import com.mjc.school.repository.models.NewsModel;
 import com.mjc.school.repository.NewsRepository;
 import com.mjc.school.repository.implementation.CNewsRepository;
 import com.mjc.school.dto.NewsDTO;
@@ -26,8 +26,8 @@ public class CNewsService implements NewsService {
     }
 
     @Override
-    public Long createNewsEntry(NewsDTO news) {
-        return newsRepo.createNewsEntry(dtoToEntity(news));
+    public NewsDTO createNewsEntry(NewsDTO news) {
+        return entityToDto(newsRepo.createNewsEntry(dtoToEntity(news)));
     }
 
     @Override
@@ -37,8 +37,8 @@ public class CNewsService implements NewsService {
     }
 
     @Override
-    public Boolean updateNewsEntry(NewsDTO news) {
-        return newsRepo.updateNewsEntry(dtoToEntity(news));
+    public NewsDTO updateNewsEntry(NewsDTO news) {
+        return entityToDto(newsRepo.updateNewsEntry(dtoToEntity(news)));
     }
 
     private NewsModel dtoToEntity(NewsDTO newsDto) {

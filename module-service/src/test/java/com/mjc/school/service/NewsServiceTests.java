@@ -1,8 +1,8 @@
 package com.mjc.school.service;
 
-import com.mjc.school.repository.implementation.AuthorModel;
+import com.mjc.school.repository.models.AuthorModel;
 import com.mjc.school.repository.implementation.CNewsRepository;
-import com.mjc.school.repository.implementation.NewsModel;
+import com.mjc.school.repository.models.NewsModel;
 import com.mjc.school.repository.NewsRepository;
 import com.mjc.school.service.implementation.CNewsService;
 import org.junit.jupiter.api.BeforeEach;

@@ -31,8 +31,8 @@ public class NewsMethods {
         newsDTO.setTitle(title);
         newsDTO.setContent(content);
         newsDTO.setAuthorId(authorID);
-        var id = newsController.createNewsEntry(newsDTO);
-        System.out.println(newsController.getNewsById(id));
+        var newNews = newsController.createNewsEntry(newsDTO);
+        System.out.println(newNews.toString());
     }
 
     public static void updateNews(Controller newsController) {
@@ -50,11 +50,9 @@ public class NewsMethods {
         newsDTO.setTitle(title);
         newsDTO.setContent(content);
         newsDTO.setAuthorId(authorID);
-        if(newsController.updateNewsEntry(newsDTO))
-            System.out.println("Success:");
-        else
-            System.out.println("Failure:");
-        System.out.println(newsController.getNewsById(newsID));
+        var updatedNews = newsController.updateNewsEntry(newsDTO);
+        System.out.println("Success:");
+        System.out.println(updatedNews.toString());
     }
 
     public static void deleteNewsById(Controller newsController) {

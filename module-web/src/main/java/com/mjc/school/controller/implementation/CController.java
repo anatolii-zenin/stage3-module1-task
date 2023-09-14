@@ -25,7 +25,7 @@ public class CController implements Controller {
     }
 
     @Override
-    public Long createNewsEntry(NewsDTO newsDto) {
+    public NewsDTO createNewsEntry(NewsDTO newsDto) {
         return newsService.createNewsEntry(newsDto);
     }
 
@@ -35,7 +35,7 @@ public class CController implements Controller {
     }
 
     @Override
-    public Boolean updateNewsEntry(NewsDTO news) {
+    public NewsDTO updateNewsEntry(NewsDTO news) {
         return newsService.updateNewsEntry(news);
     }
 }
