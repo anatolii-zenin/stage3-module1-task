@@ -1,5 +1,6 @@
 package com.mjc.school.repository;
 
+import com.mjc.school.repository.implementation.CNewsRepository;
 import org.junit.jupiter.api.Test;
 
 import java.time.format.DateTimeFormatter;

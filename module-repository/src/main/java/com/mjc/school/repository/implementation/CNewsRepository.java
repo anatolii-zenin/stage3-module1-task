@@ -1,7 +1,8 @@
-package com.mjc.school.repository;
+package com.mjc.school.repository.implementation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.mjc.school.repository.NewsRepository;
 import jdk.jshell.spi.ExecutionControl;
 
 

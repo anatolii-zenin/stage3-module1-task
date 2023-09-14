@@ -1,6 +1,7 @@
-package com.mjc.school.controller;
+package com.mjc.school.controller.implementation;
 
-import com.mjc.school.service.CNewsService;
+import com.mjc.school.controller.Controller;
+import com.mjc.school.service.implementation.CNewsService;
 import com.mjc.school.dto.NewsDTO;
 import com.mjc.school.service.NewsService;
 

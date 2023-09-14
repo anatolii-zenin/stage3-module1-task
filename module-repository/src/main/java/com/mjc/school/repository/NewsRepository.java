@@ -1,5 +1,8 @@
 package com.mjc.school.repository;
 
+import com.mjc.school.repository.implementation.AuthorEntity;
+import com.mjc.school.repository.implementation.NewsEntity;
+
 import java.util.List;
 
 public interface NewsRepository {

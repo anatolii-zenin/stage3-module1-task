@@ -1,9 +1,11 @@
-package com.mjc.school.service;
+package com.mjc.school.service.implementation;
 
-import com.mjc.school.repository.NewsEntity;
+import com.mjc.school.repository.implementation.NewsEntity;
 import com.mjc.school.repository.NewsRepository;
-import com.mjc.school.repository.CNewsRepository;
+import com.mjc.school.repository.implementation.CNewsRepository;
 import com.mjc.school.dto.NewsDTO;
+import com.mjc.school.service.NewsMapper;
+import com.mjc.school.service.NewsService;
 
 import java.util.ArrayList;
 import java.util.List;

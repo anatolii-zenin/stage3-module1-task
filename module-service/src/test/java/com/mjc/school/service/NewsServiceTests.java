@@ -1,10 +1,10 @@
 package com.mjc.school.service;
 
-import com.mjc.school.repository.AuthorEntity;
-import com.mjc.school.repository.CNewsRepository;
-import com.mjc.school.repository.NewsEntity;
+import com.mjc.school.repository.implementation.AuthorEntity;
+import com.mjc.school.repository.implementation.CNewsRepository;
+import com.mjc.school.repository.implementation.NewsEntity;
 import com.mjc.school.repository.NewsRepository;
-import org.junit.jupiter.api.BeforeAll;
+import com.mjc.school.service.implementation.CNewsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
