@@ -1,97 +1,54 @@
 package com.mjc.school.service;
 
 import com.mjc.school.repository.NewsEntity;
-import com.mjc.school.repository.AuthorEntity;
 import com.mjc.school.repository.NewsRepository;
 import com.mjc.school.repository.CNewsRepository;
+import com.mjc.school.dto.NewsDTO;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CNewsService implements NewsService {
     private static volatile CNewsService instance = new CNewsService();
     private NewsRepository newsRepo = CNewsRepository.instance();
-    private List<AuthorDTO> authors = new ArrayList<>();
+    private String status = "created";
     private List<NewsDTO> news = new ArrayList<>();
     @Override
     public boolean deleteNewsEntry(long id) {
-        newsRepo.deleteNewsEntry(id);
-        return true;
+        return newsRepo.deleteNewsEntry(id);
     }
 
     @Override
     public NewsDTO getNewsById(long id) {
-        return null;
+        return entityToDto(newsRepo.getNewsById(id));
     }
 
     @Override
-    public int createNewsEntry(NewsDTO news) {
-        return 0;
+    public long createNewsEntry(NewsDTO news) {
+        return newsRepo.createNewsEntry(dtoToEntity(news));
     }
 
     @Override
     public List<NewsDTO> getAllNews() {
+        fetchNews();
         return news;
     }
 
     @Override
     public boolean updateNewsEntry(NewsDTO news) {
-        return false;
+        return newsRepo.updateNewsEntry(dtoToEntity(news));
     }
 
     private NewsEntity dtoToEntity(NewsDTO newsDto) {
-        return null;
-    }
-
-    private AuthorEntity dtoToEntity(AuthorDTO authorDTO) {
-        return null;
+        return NewsMapper.instance.newsDtoToEntity(newsDto);
     }
 
     private NewsDTO entityToDto(NewsEntity newsEntity) {
-        var builder = NewsDTO.getBuilder();
-        builder.setId(newsEntity.getId())
-                .setTitle(newsEntity.getTitle())
-                .setContent(newsEntity.getContent())
-                .setCreateDate(formatDate(newsEntity.getCreateDate()))
-                .setLastUpdateDate(formatDate(newsEntity.getLastUpdateDate()))
-                .setAuthor(getAuthorNameByID(newsEntity.getAuthorId()));
-        return builder.build();
+        return NewsMapper.instance.newsToNewsDto(newsEntity);
     }
 
-    private AuthorDTO entityToDto(AuthorEntity authorEntity) {
-        var builder = AuthorDTO.getBuilder();
-        builder.setId(authorEntity.getId())
-                .setName(authorEntity.getName());
-        return builder.build();
-    }
-
-    private String getAuthorNameByID(long id) {
-        var authorsWithId = authors.stream().filter(a -> a.getId() == id).collect(Collectors.toList());
-        if (authorsWithId.size() > 1)
-            throw new RuntimeException("found more than a single author with id:" + id);
-        return authorsWithId.get(0).getName();
-    }
-
-    private String formatDate(LocalDateTime date) {
-        return date.format(DateTimeFormatter.ofPattern(newsRepo.getDateFormatPattern()));
-    }
-
-    private int addAuthor(String name) {
-        return 0;
-    }
-
-    private void fetchNewsAndAuthors() {
-        var authorEntities = newsRepo.getAllAuthors();
+    private void fetchNews() {
         var newsEntities = newsRepo.getAllNews();
-
-        int authorCounter = 0;
-        for (var authorEntity : authorEntities) {
-            authors.add(entityToDto(authorEntity));
-            authorCounter++;
-        }
 
         int newsCounter = 0;
         for (var newsEntity : newsEntities) {
@@ -99,7 +56,6 @@ public class CNewsService implements NewsService {
             newsCounter++;
         }
 
-        System.out.println("fetched authors: " + authorCounter);
         System.out.println("fetched news: " + newsCounter);
     }
 
@@ -108,8 +64,10 @@ public class CNewsService implements NewsService {
     }
 
     public void init() {
-        newsRepo.readDataFromFiles();
-        fetchNewsAndAuthors();
+        if (!status.equals("initialised")) {
+            newsRepo.readDataFromFiles();
+            status = "initialised";
+        }
     }
 
     public static CNewsService instance() {
