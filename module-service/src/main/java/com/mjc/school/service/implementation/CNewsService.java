@@ -16,13 +16,13 @@ public class CNewsService implements NewsService {
     private String status = "created";
     private List<NewsDTO> news = new ArrayList<>();
     @Override
-    public boolean deleteNewsEntry(long id) {
+    public Boolean deleteNewsEntry(long id) {
         return newsRepo.deleteNewsEntry(id);
     }
 
     @Override
     public NewsDTO getNewsById(long id) {
-        return entityToDto(newsRepo.getNewsById(id));
+        return entityToDto(newsRepo.readByIdNews(id));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class CNewsService implements NewsService {
     }
 
     @Override
-    public boolean updateNewsEntry(NewsDTO news) {
+    public Boolean updateNewsEntry(NewsDTO news) {
         return newsRepo.updateNewsEntry(dtoToEntity(news));
     }
 
@@ -50,7 +50,7 @@ public class CNewsService implements NewsService {
     }
 
     private void fetchNews() {
-        var newsEntities = newsRepo.getAllNews();
+        var newsEntities = newsRepo.readAllNews();
 
         int newsCounter = 0;
         for (var newsEntity : newsEntities) {
@@ -67,7 +67,7 @@ public class CNewsService implements NewsService {
 
     public void init() {
         if (!status.equals("initialised")) {
-            newsRepo.readDataFromFiles();
+            newsRepo.setDataSource();
             status = "initialised";
         }
     }

@@ -1,39 +1,32 @@
 package com.mjc.school.repository.implementation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.mjc.school.repository.NewsRepository;
 import jdk.jshell.spi.ExecutionControl;
 
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.DateFormat;
 import java.time.LocalDateTime;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class CNewsRepository implements NewsRepository {
     private static volatile CNewsRepository instance = new CNewsRepository();
+    private DataSource dataSource;
     private List<NewsEntity> allNews;
     private List<AuthorEntity> allAuthors;
-    private String dateFormatPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";
     @Override
-    public boolean deleteNewsEntry(long id) {
-        NewsEntity newsToDelete = getNewsById(id);
+    public Boolean deleteNewsEntry(long id) {
+        NewsEntity newsToDelete = readByIdNews(id);
         int index = -1;
         if (allNews.contains(newsToDelete))
             index = allNews.indexOf(newsToDelete);
         else
             throw new RuntimeException("found no news object with id: " + id);
         allNews.remove(index);
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
-    public NewsEntity getNewsById(long id) {
+    public NewsEntity readByIdNews(long id) {
         var newsEntitiesWithId = allNews.stream().filter(a -> a.getId() == id).toList();
         if (newsEntitiesWithId.size() > 1)
             throw new RuntimeException("found more than a single news object with id: " + id);
@@ -54,7 +47,7 @@ public class CNewsRepository implements NewsRepository {
     }
 
     @Override
-    public boolean updateNewsEntry(NewsEntity news) {
+    public Boolean updateNewsEntry(NewsEntity news) {
         var id = news.getId();
         int index = -1;
         if (allNews.contains(news))
@@ -66,11 +59,11 @@ public class CNewsRepository implements NewsRepository {
         allNews.get(index).setAuthorId(news.getAuthorId());
         var now = LocalDateTime.now();
         allNews.get(index).setLastUpdateDate(now);
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
-    public List<NewsEntity> getAllNews() {
+    public List<NewsEntity> readAllNews() {
         return allNews;
     }
 
@@ -80,7 +73,7 @@ public class CNewsRepository implements NewsRepository {
     }
 
     public String getDateFormatPattern() {
-        return dateFormatPattern;
+        return dataSource.getDateFormatPattern();
     }
 
     private long generateNewsID() {
@@ -89,34 +82,29 @@ public class CNewsRepository implements NewsRepository {
         return ++largestId;
     }
 
-    private <T> List<T> readJsonFile(String fileName, Class<T> objClass) {
-        DateFormat df = new SimpleDateFormat(dateFormatPattern);
-        var objMapper = new ObjectMapper()
-                .registerModule(new JavaTimeModule())
-                .setDateFormat(df);
-        try(InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(fileName)) {
-            var collectionType = objMapper.getTypeFactory().constructCollectionType(ArrayList.class, objClass);
-            return objMapper.readValue(resourceStream, collectionType);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read from the file: " + fileName);
-        }
-    }
-
-    public void readDataFromFiles() {
-        allNews = readJsonFile("news.json", NewsEntity.class);
-        allAuthors = readJsonFile("authors.json", AuthorEntity.class);
-    }
-
-    public void readDataFromFiles(String newsFile, String authorsFile) {
-        allNews = readJsonFile(newsFile, NewsEntity.class);
-        allAuthors = readJsonFile(authorsFile, AuthorEntity.class);
-    }
-
     public boolean saveToFile() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("not implemented yet");
     }
 
     public static CNewsRepository instance(){
         return instance;
+    }
+
+    public void setDataSource(String newsFileName, String authorsFileName) {
+        this.dataSource = new DataSource("news_test.json","authors_test.json");
+        readData();
+    }
+
+    public void setDataSource() {
+        this.dataSource = new DataSource();
+        readData();
+    }
+
+    public void readData() {
+        allNews = dataSource.getNewsData();
+        allAuthors = dataSource.getAuthorsData();
+    }
+
+    private CNewsRepository() {
     }
 }

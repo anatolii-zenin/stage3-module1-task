@@ -5,10 +5,10 @@ import com.mjc.school.dto.NewsDTO;
 import java.util.List;
 
 public interface Controller {
-    boolean deleteNewsEntry(long id);
+    Boolean deleteNewsEntry(long id);
     NewsDTO getNewsById(long id);
     long createNewsEntry(NewsDTO newsDto);
     List<NewsDTO> getAllNews();
-    boolean updateNewsEntry(NewsDTO news);
+    Boolean updateNewsEntry(NewsDTO news);
     void init();
 }

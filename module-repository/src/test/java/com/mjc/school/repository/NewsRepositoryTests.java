@@ -11,8 +11,8 @@ public class NewsRepositoryTests {
     @Test
     public void readFileTest() {
         NewsRepository repo = CNewsRepository.instance();
-        repo.readDataFromFiles("news_test.json","authors_test.json");
-        var newsEntry = repo.getAllNews().get(0);
+        repo.setDataSource("news_test.json","authors_test.json");
+        var newsEntry = repo.readAllNews().get(0);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(CNewsRepository.instance().getDateFormatPattern());
         assertEquals(0, newsEntry.getId());
         assertEquals("testNews", newsEntry.getTitle());

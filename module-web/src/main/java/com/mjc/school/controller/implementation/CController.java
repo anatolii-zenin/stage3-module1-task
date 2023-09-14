@@ -15,7 +15,7 @@ public class CController implements Controller {
     }
 
     @Override
-    public boolean deleteNewsEntry(long id) {
+    public Boolean deleteNewsEntry(long id) {
         return newsService.deleteNewsEntry(id);
     }
 
@@ -35,7 +35,7 @@ public class CController implements Controller {
     }
 
     @Override
-    public boolean updateNewsEntry(NewsDTO news) {
+    public Boolean updateNewsEntry(NewsDTO news) {
         return newsService.updateNewsEntry(news);
     }
 }

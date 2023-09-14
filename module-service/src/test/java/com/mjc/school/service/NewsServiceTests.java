@@ -63,7 +63,7 @@ public class NewsServiceTests {
     }
     @Test
     public void entityToDtoTest() {
-        when(newsRepoMock.getAllNews()).thenReturn(getMockNews());
+        when(newsRepoMock.readAllNews()).thenReturn(getMockNews());
         when(newsRepoMock.getAllAuthors()).thenReturn(getMockAuthors());
         when(newsRepoMock.getDateFormatPattern()).thenReturn(dateTimeFormat);
         newsService.init();
