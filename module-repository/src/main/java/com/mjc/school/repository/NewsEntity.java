@@ -3,7 +3,6 @@ package com.mjc.school.repository;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +21,17 @@ public class NewsEntity {
     public String toString() {
         return "[" + id + "] " + title + ". created: " + createDate + ". modified: " +
                 lastUpdateDate + ". author: " + authorId + ". " + content;
+    }
+
+    @Override
+    public boolean equals(Object newsEntityObj) {
+        if (!(newsEntityObj instanceof NewsEntity otherNews))
+            return false;
+        return this.id == otherNews.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) id;
     }
 }
