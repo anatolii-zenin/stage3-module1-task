@@ -66,7 +66,6 @@ public class NewsServiceTests {
         when(newsRepoMock.readAllNews()).thenReturn(getMockNews());
         when(newsRepoMock.getAllAuthors()).thenReturn(getMockAuthors());
         when(newsRepoMock.getDateFormatPattern()).thenReturn(dateTimeFormat);
-        newsService.init();
         var testDto = newsService.getAllNews().get(0);
         assertEquals(0, testDto.getId());
         assertEquals("mockContent", testDto.getContent());

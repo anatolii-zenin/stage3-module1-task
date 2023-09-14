@@ -12,7 +12,5 @@ public interface NewsRepository {
     List<NewsModel> readAllNews();
     NewsModel updateNewsEntry(NewsModel news);
     List<AuthorModel> getAllAuthors();
-    void setDataSource();
-    void setDataSource(String newsFile, String authorsFile);
     String getDateFormatPattern();
 }

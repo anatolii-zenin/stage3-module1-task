@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CNewsRepository implements NewsRepository {
     private static volatile CNewsRepository instance = new CNewsRepository();
-    private DataSource dataSource;
+    private final DataSource dataSource = DataSource.getInstance();
     private List<NewsModel> allNews;
     private List<AuthorModel> allAuthors;
     @Override
@@ -29,7 +29,7 @@ public class CNewsRepository implements NewsRepository {
 
     @Override
     public NewsModel readByIdNews(Long id) {
-        var newsEntitiesWithId = allNews.stream().filter(a -> a.getId() == id).toList();
+        var newsEntitiesWithId = allNews.stream().filter(a -> a.getId().equals(id)).toList();
         if (newsEntitiesWithId.size() > 1)
             throw new RuntimeException("found more than a single news object with id: " + id);
         else if (newsEntitiesWithId.size() == 0)
@@ -92,21 +92,8 @@ public class CNewsRepository implements NewsRepository {
         return instance;
     }
 
-    public void setDataSource(String newsFileName, String authorsFileName) {
-        this.dataSource = new DataSource("news_test.json","authors_test.json");
-        readData();
-    }
-
-    public void setDataSource() {
-        this.dataSource = new DataSource();
-        readData();
-    }
-
-    public void readData() {
+    private CNewsRepository() {
         allNews = dataSource.getNewsData();
         allAuthors = dataSource.getAuthorsData();
-    }
-
-    private CNewsRepository() {
     }
 }

@@ -10,5 +10,4 @@ public interface NewsService {
     NewsDTO createNewsEntry(NewsDTO news);
     List<NewsDTO> getAllNews();
     NewsDTO updateNewsEntry(NewsDTO news);
-    void init();
 }

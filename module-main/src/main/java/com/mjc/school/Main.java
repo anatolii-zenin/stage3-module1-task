@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Controller newsController = new CController();
-        newsController.init();
         Scanner in = new Scanner(System.in);
         boolean exit = false;
         while (!exit) {

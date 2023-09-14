@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataSource {
+    private static volatile DataSource instance = new DataSource();
     private List<NewsModel> allNews;
     private List<AuthorModel> allAuthors;
 
@@ -40,17 +41,8 @@ public class DataSource {
         allAuthors = readJsonFile("authors.json", AuthorModel.class);
     }
 
-    private void readDataFromFiles(String newsFile, String authorsFile) {
-        allNews = readJsonFile(newsFile, NewsModel.class);
-        allAuthors = readJsonFile(authorsFile, AuthorModel.class);
-    }
-
-    public DataSource() {
+    private DataSource() {
         readDataFromFiles();
-    }
-
-    public DataSource(String newsFileName, String authorsFileName) {
-        readDataFromFiles(newsFileName, authorsFileName);
     }
 
     public List<NewsModel> getNewsData() {
@@ -59,5 +51,9 @@ public class DataSource {
 
     public List<AuthorModel> getAuthorsData() {
         return allAuthors;
+    }
+
+    public static DataSource getInstance() {
+        return instance;
     }
 }

@@ -13,7 +13,6 @@ import java.util.List;
 public class CNewsService implements NewsService {
     private static volatile CNewsService instance = new CNewsService();
     private NewsRepository newsRepo = CNewsRepository.instance();
-    private String status = "created";
     private List<NewsDTO> news = new ArrayList<>();
     @Override
     public Boolean deleteNewsEntry(Long id) {
@@ -64,14 +63,6 @@ public class CNewsService implements NewsService {
     public void setNewsRepo(NewsRepository newsRepoInstance) {
         newsRepo = newsRepoInstance;
     }
-
-    public void init() {
-        if (!status.equals("initialised")) {
-            newsRepo.setDataSource();
-            status = "initialised";
-        }
-    }
-
     public static CNewsService instance() {
         return instance;
     }

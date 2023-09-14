@@ -10,10 +10,6 @@ import java.util.List;
 public class CController implements Controller {
     private final NewsService newsService = CNewsService.instance();
 
-    public void init() {
-        newsService.init();
-    }
-
     @Override
     public Boolean deleteNewsEntry(Long id) {
         return newsService.deleteNewsEntry(id);

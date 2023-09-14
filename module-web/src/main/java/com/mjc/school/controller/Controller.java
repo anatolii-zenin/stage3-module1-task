@@ -10,5 +10,4 @@ public interface Controller {
     NewsDTO createNewsEntry(NewsDTO newsDto);
     List<NewsDTO> getAllNews();
     NewsDTO updateNewsEntry(NewsDTO news);
-    void init();
 }
