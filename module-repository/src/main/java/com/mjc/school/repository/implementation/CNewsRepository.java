@@ -11,11 +11,11 @@ import java.util.List;
 public class CNewsRepository implements NewsRepository {
     private static volatile CNewsRepository instance = new CNewsRepository();
     private DataSource dataSource;
-    private List<NewsEntity> allNews;
-    private List<AuthorEntity> allAuthors;
+    private List<NewsModel> allNews;
+    private List<AuthorModel> allAuthors;
     @Override
-    public Boolean deleteNewsEntry(long id) {
-        NewsEntity newsToDelete = readByIdNews(id);
+    public Boolean deleteNewsEntry(Long id) {
+        NewsModel newsToDelete = readByIdNews(id);
         int index = -1;
         if (allNews.contains(newsToDelete))
             index = allNews.indexOf(newsToDelete);
@@ -26,7 +26,7 @@ public class CNewsRepository implements NewsRepository {
     }
 
     @Override
-    public NewsEntity readByIdNews(long id) {
+    public NewsModel readByIdNews(Long id) {
         var newsEntitiesWithId = allNews.stream().filter(a -> a.getId() == id).toList();
         if (newsEntitiesWithId.size() > 1)
             throw new RuntimeException("found more than a single news object with id: " + id);
@@ -36,7 +36,7 @@ public class CNewsRepository implements NewsRepository {
     }
 
     @Override
-    public long createNewsEntry(NewsEntity news) {
+    public Long createNewsEntry(NewsModel news) {
         var id = generateNewsID();
         var now = LocalDateTime.now();
         news.setId(id);
@@ -47,7 +47,7 @@ public class CNewsRepository implements NewsRepository {
     }
 
     @Override
-    public Boolean updateNewsEntry(NewsEntity news) {
+    public Boolean updateNewsEntry(NewsModel news) {
         var id = news.getId();
         int index = -1;
         if (allNews.contains(news))
@@ -63,12 +63,12 @@ public class CNewsRepository implements NewsRepository {
     }
 
     @Override
-    public List<NewsEntity> readAllNews() {
+    public List<NewsModel> readAllNews() {
         return allNews;
     }
 
     @Override
-    public List<AuthorEntity> getAllAuthors() {
+    public List<AuthorModel> getAllAuthors() {
         return allAuthors;
     }
 
@@ -76,9 +76,9 @@ public class CNewsRepository implements NewsRepository {
         return dataSource.getDateFormatPattern();
     }
 
-    private long generateNewsID() {
-        long largestId = allNews.stream()
-                .max(Comparator.comparingLong(NewsEntity::getId)).get().getId();
+    private Long generateNewsID() {
+        Long largestId = allNews.stream()
+                .max(Comparator.comparingLong(NewsModel::getId)).get().getId();
         return ++largestId;
     }
 

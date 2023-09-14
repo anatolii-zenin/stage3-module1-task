@@ -9,12 +9,12 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @Getter
 public class NewsDTO {
-    private long id;
+    private Long id;
     private String title;
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime lastUpdateDate;
-    private long authorId;
+    private Long authorId;
     private static final String dateFormatPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 
     @Override

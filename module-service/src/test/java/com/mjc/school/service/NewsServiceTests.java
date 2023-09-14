@@ -1,8 +1,8 @@
 package com.mjc.school.service;
 
-import com.mjc.school.repository.implementation.AuthorEntity;
+import com.mjc.school.repository.implementation.AuthorModel;
 import com.mjc.school.repository.implementation.CNewsRepository;
-import com.mjc.school.repository.implementation.NewsEntity;
+import com.mjc.school.repository.implementation.NewsModel;
 import com.mjc.school.repository.NewsRepository;
 import com.mjc.school.service.implementation.CNewsService;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,34 +22,34 @@ public class NewsServiceTests {
     private NewsService newsService;
     private String dateTimeFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 
-    private List<NewsEntity> getMockNews() {
-        var newsEntityListMock = new ArrayList<NewsEntity>();
-        newsEntityListMock.add(getMockNewsEntity(0));
+    private List<NewsModel> getMockNews() {
+        var newsEntityListMock = new ArrayList<NewsModel>();
+        newsEntityListMock.add(getMockNewsEntity((long)0));
         return newsEntityListMock;
     }
 
-    private List<AuthorEntity> getMockAuthors() {
-        var authorEntityListMock = new ArrayList<AuthorEntity>();
-        authorEntityListMock.add(getMockAuthorEntity(0));
+    private List<AuthorModel> getMockAuthors() {
+        var authorEntityListMock = new ArrayList<AuthorModel>();
+        authorEntityListMock.add(getMockAuthorEntity((long)0));
         return authorEntityListMock;
     }
 
-    private NewsEntity getMockNewsEntity(int id) {
-        var newsEntry = new NewsEntity();
+    private NewsModel getMockNewsEntity(Long id) {
+        var newsEntry = new NewsModel();
         var createDate = "2001-01-01T01:01:01.001";
         var lastUpdateDate = "2005-05-05T05:05:05.005";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
         newsEntry.setId(id);
         newsEntry.setTitle("mockTitle");
         newsEntry.setContent("mockContent");
-        newsEntry.setAuthorId(0);
+        newsEntry.setAuthorId((long) 0);
         newsEntry.setCreateDate(LocalDateTime.parse(createDate, formatter));
         newsEntry.setLastUpdateDate(LocalDateTime.parse(lastUpdateDate, formatter));
         return newsEntry;
     }
 
-    private AuthorEntity getMockAuthorEntity(int id) {
-        var authorEntity = new AuthorEntity();
+    private AuthorModel getMockAuthorEntity(Long id) {
+        var authorEntity = new AuthorModel();
         authorEntity.setId(id);
         authorEntity.setName("mockAuthor");
         return authorEntity;

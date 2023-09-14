@@ -15,17 +15,17 @@ public class CController implements Controller {
     }
 
     @Override
-    public Boolean deleteNewsEntry(long id) {
+    public Boolean deleteNewsEntry(Long id) {
         return newsService.deleteNewsEntry(id);
     }
 
     @Override
-    public NewsDTO getNewsById(long id) {
+    public NewsDTO getNewsById(Long id) {
         return newsService.getNewsById(id);
     }
 
     @Override
-    public long createNewsEntry(NewsDTO newsDto) {
+    public Long createNewsEntry(NewsDTO newsDto) {
         return newsService.createNewsEntry(newsDto);
     }
 

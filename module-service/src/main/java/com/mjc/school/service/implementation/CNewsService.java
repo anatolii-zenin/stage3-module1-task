@@ -1,6 +1,6 @@
 package com.mjc.school.service.implementation;
 
-import com.mjc.school.repository.implementation.NewsEntity;
+import com.mjc.school.repository.implementation.NewsModel;
 import com.mjc.school.repository.NewsRepository;
 import com.mjc.school.repository.implementation.CNewsRepository;
 import com.mjc.school.dto.NewsDTO;
@@ -16,17 +16,17 @@ public class CNewsService implements NewsService {
     private String status = "created";
     private List<NewsDTO> news = new ArrayList<>();
     @Override
-    public Boolean deleteNewsEntry(long id) {
+    public Boolean deleteNewsEntry(Long id) {
         return newsRepo.deleteNewsEntry(id);
     }
 
     @Override
-    public NewsDTO getNewsById(long id) {
+    public NewsDTO getNewsById(Long id) {
         return entityToDto(newsRepo.readByIdNews(id));
     }
 
     @Override
-    public long createNewsEntry(NewsDTO news) {
+    public Long createNewsEntry(NewsDTO news) {
         return newsRepo.createNewsEntry(dtoToEntity(news));
     }
 
@@ -41,12 +41,12 @@ public class CNewsService implements NewsService {
         return newsRepo.updateNewsEntry(dtoToEntity(news));
     }
 
-    private NewsEntity dtoToEntity(NewsDTO newsDto) {
+    private NewsModel dtoToEntity(NewsDTO newsDto) {
         return NewsMapper.instance.newsDtoToEntity(newsDto);
     }
 
-    private NewsDTO entityToDto(NewsEntity newsEntity) {
-        return NewsMapper.instance.newsToNewsDto(newsEntity);
+    private NewsDTO entityToDto(NewsModel newsModel) {
+        return NewsMapper.instance.newsToNewsDto(newsModel);
     }
 
     private void fetchNews() {

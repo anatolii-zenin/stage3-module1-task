@@ -9,13 +9,13 @@ import lombok.Setter;
 @JsonAutoDetect
 @Setter
 @Getter
-public class NewsEntity {
-    private long id;
+public class NewsModel {
+    private Long id;
     private String title;
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime lastUpdateDate;
-    private long authorId;
+    private Long authorId;
 
     @Override
     public String toString() {
@@ -25,13 +25,13 @@ public class NewsEntity {
 
     @Override
     public boolean equals(Object newsEntityObj) {
-        if (!(newsEntityObj instanceof NewsEntity otherNews))
+        if (!(newsEntityObj instanceof NewsModel otherNews))
             return false;
         return this.id == otherNews.id;
     }
 
     @Override
     public int hashCode() {
-        return (int) id;
+        return id.intValue();
     }
 }

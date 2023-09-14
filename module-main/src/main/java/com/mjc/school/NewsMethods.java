@@ -3,8 +3,6 @@ package com.mjc.school;
 import com.mjc.school.controller.Controller;
 import com.mjc.school.dto.NewsDTO;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class NewsMethods {
@@ -17,7 +15,7 @@ public class NewsMethods {
     public static void getNewsById(Controller newsController) {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter ID:");
-        long id = Long.parseLong(in.nextLine());
+        Long id = Long.parseLong(in.nextLine());
         System.out.println(newsController.getNewsById(id).toString());
     }
 
@@ -28,7 +26,7 @@ public class NewsMethods {
         System.out.println("Enter content:");
         var content = in.nextLine();
         System.out.println("Enter author ID:");
-        long authorID = Long.parseLong(in.nextLine());
+        Long authorID = Long.parseLong(in.nextLine());
         var newsDTO = new NewsDTO();
         newsDTO.setTitle(title);
         newsDTO.setContent(content);
@@ -40,13 +38,13 @@ public class NewsMethods {
     public static void updateNews(Controller newsController) {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter news ID");
-        long newsID = Long.parseLong(in.nextLine());
+        Long newsID = Long.parseLong(in.nextLine());
         System.out.println("Enter title:");
         var title = in.nextLine();
         System.out.println("Enter content:");
         var content = in.nextLine();
         System.out.println("Enter author ID:");
-        long authorID = Long.parseLong(in.nextLine());
+        Long authorID = Long.parseLong(in.nextLine());
         var newsDTO = new NewsDTO();
         newsDTO.setId(newsID);
         newsDTO.setTitle(title);
@@ -62,7 +60,7 @@ public class NewsMethods {
     public static void deleteNewsById(Controller newsController) {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter news ID");
-        long newsID = Long.parseLong(in.nextLine());
+        Long newsID = Long.parseLong(in.nextLine());
         if(newsController.deleteNewsEntry(newsID))
             System.out.println("Success:");
         else

@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class AuthorEntity {
-    private long id;
+public class AuthorModel {
+    private Long id;
     private String name;
 
     @Override

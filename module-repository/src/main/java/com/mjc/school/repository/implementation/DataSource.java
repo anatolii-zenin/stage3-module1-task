@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataSource {
-    private List<NewsEntity> allNews;
-    private List<AuthorEntity> allAuthors;
+    private List<NewsModel> allNews;
+    private List<AuthorModel> allAuthors;
 
     private final String dateFormatPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 
@@ -34,13 +34,13 @@ public class DataSource {
     }
 
     private void readDataFromFiles() {
-        allNews = readJsonFile("news.json", NewsEntity.class);
-        allAuthors = readJsonFile("authors.json", AuthorEntity.class);
+        allNews = readJsonFile("news.json", NewsModel.class);
+        allAuthors = readJsonFile("authors.json", AuthorModel.class);
     }
 
     private void readDataFromFiles(String newsFile, String authorsFile) {
-        allNews = readJsonFile(newsFile, NewsEntity.class);
-        allAuthors = readJsonFile(authorsFile, AuthorEntity.class);
+        allNews = readJsonFile(newsFile, NewsModel.class);
+        allAuthors = readJsonFile(authorsFile, AuthorModel.class);
     }
 
     public DataSource() {
@@ -51,11 +51,11 @@ public class DataSource {
         readDataFromFiles(newsFileName, authorsFileName);
     }
 
-    public List<NewsEntity> getNewsData() {
+    public List<NewsModel> getNewsData() {
         return allNews;
     }
 
-    public List<AuthorEntity> getAuthorsData() {
+    public List<AuthorModel> getAuthorsData() {
         return allAuthors;
     }
 }
