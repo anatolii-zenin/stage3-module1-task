@@ -1,13 +1,14 @@
 package com.mjc.school.controller;
 
-import com.mjc.school.service.NewsDTO;
+import com.mjc.school.dto.NewsDTO;
 
 import java.util.List;
 
 public interface Controller {
-    boolean deleteNewsEntry(int id);
-    NewsDTO getNewsById(int id);
-    int createNewsEntry(NewsDTO news);
+    boolean deleteNewsEntry(long id);
+    NewsDTO getNewsById(long id);
+    long createNewsEntry(NewsDTO newsDto);
     List<NewsDTO> getAllNews();
     boolean updateNewsEntry(NewsDTO news);
+    void init();
 }

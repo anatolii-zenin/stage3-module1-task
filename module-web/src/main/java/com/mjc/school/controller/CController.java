@@ -1,33 +1,40 @@
 package com.mjc.school.controller;
 
-import com.mjc.school.service.NewsDTO;
+import com.mjc.school.service.CNewsService;
+import com.mjc.school.dto.NewsDTO;
+import com.mjc.school.service.NewsService;
 
 import java.util.List;
 
 public class CController implements Controller {
+    private final NewsService newsService = CNewsService.instance();
 
-    @Override
-    public boolean deleteNewsEntry(int id) {
-        return false;
+    public void init() {
+        newsService.init();
     }
 
     @Override
-    public NewsDTO getNewsById(int id) {
-        return null;
+    public boolean deleteNewsEntry(long id) {
+        return newsService.deleteNewsEntry(id);
     }
 
     @Override
-    public int createNewsEntry(NewsDTO news) {
-        return 0;
+    public NewsDTO getNewsById(long id) {
+        return newsService.getNewsById(id);
+    }
+
+    @Override
+    public long createNewsEntry(NewsDTO newsDto) {
+        return newsService.createNewsEntry(newsDto);
     }
 
     @Override
     public List<NewsDTO> getAllNews() {
-        return null;
+        return newsService.getAllNews();
     }
 
     @Override
     public boolean updateNewsEntry(NewsDTO news) {
-        return false;
+        return newsService.updateNewsEntry(news);
     }
 }
